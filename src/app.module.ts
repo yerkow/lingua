@@ -28,7 +28,7 @@ import {ChatController} from "@/ai/chat.controller";
                 target: "pino-pretty",
                 options: {
                   colorize: true,
-                  // singleLine: true,
+                  singleLine: true,
                 },
               }
             : undefined,
