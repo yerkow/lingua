@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -14,23 +10,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // Пользователи
 model User {
-	id String @id  @default(uuid())
-	fullname String?
-	login String? @unique @db.VarChar(16)
-	password String? 
-	
-	role UserRole
+  id         String   @id @default(uuid())
+  fullname   String?
+  login      String?  @unique @db.VarChar(16)
+  password   String?
+  role       UserRole
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-	created_at DateTime @default(now())
-	updated_at DateTime @updatedAt
+  // Связь с подписками на push-уведомления
+  pushSubscriptions PushSubscription[]
 
-	@@map("users")
+  @@map("users")
 }
 
 enum UserRole {
-	USER @map("USER")
-	ADMIN @map("ADMIN")
+  USER  @map("USER")
+  ADMIN @map("ADMIN")
+}
+
+model PushSubscription {
+  id       String @id @default(uuid())
+  endpoint String @unique @db.Text
+  p256dh   String @db.Text
+  auth     String @db.Text
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+
+  @@map("push_subscriptions")
 }

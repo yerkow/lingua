@@ -33,6 +33,10 @@ import { join } from "path";
           .valid("lax", "strict", "none", "true", "false")
           .default("lax"),
         SESSION_MAX_AGE: Joi.string().default("7d"),
+        VAPID_PUBLIC_KEY: Joi.string().required(),
+        VAPID_PRIVATE_KEY: Joi.string().required(),
+        OPENAI_API_KEY: Joi.string().required(),
+        VAPID_SUBJECT: Joi.string().required(),
       }),
     }),
   ],

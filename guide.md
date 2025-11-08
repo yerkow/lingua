@@ -291,6 +291,3 @@ messages: [
 
 Так OpenAI сможет понять контекст и отвечать релевантно
 
-<div align="center">⁂</div>
-
-[^1]: Khakaton-plan.docx
