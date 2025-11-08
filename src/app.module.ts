@@ -8,6 +8,9 @@ import { AuthModule } from "./auth/auth.module";
 import { AppConfigModule } from "./config/config.module";
 import { FilesModule } from "./files/files.module";
 import { UsersModule } from "./users/users.module";
+import {OpenaiService} from "@/ai/openai.service";
+import {SpeechController} from "@/ai/speech.controller";
+import {ChatController} from "@/ai/chat.controller";
 
 @Module({
   imports: [
@@ -45,8 +48,9 @@ import { UsersModule } from "./users/users.module";
     AuthModule,
     FilesModule,
   ],
-  controllers: [],
+  controllers: [SpeechController, ChatController],
   providers: [
+    OpenaiService,
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
